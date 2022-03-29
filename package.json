@@ -1,0 +1,15 @@
+{
+  "name": "kekgrats",
+  "version": "1.0.0",
+  "description": "e",
+  "main": "index.js",
+  "repository": "https://github.com/spuuntries/kekgrats.git",
+  "author": "spuun <kek@spuun.art>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "unb-api": "^1.2.3"
+  }
+}
