@@ -20,6 +20,12 @@ module.exports = {
     "717098680175015936",
     "717098680175015936",
   ],
+  time: {
+    "weekly art": 604800000,
+    "weekly poetry": 604800000,
+    "monthly music": 2592000000,
+    "monthly writing": 2592000000,
+  },
   /**
    * @param {String} string
    * @returns { {
