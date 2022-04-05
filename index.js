@@ -37,7 +37,33 @@ client.on("messageCreate", async (message) => {
   if (
     events.channels[
       events.rewards.indexOf(events.determineEventReward(message))
-    ] !== message.channel.id
+    ] != message.channel.id
   )
     return;
+
+  if (lastPost > Date.now()) return;
+
+  let logChannel;
+
+  try {
+    logChannel = await client.channels.fetch(procenv.LOGCHANNEL);
+  } catch (e) {
+    console.log(e);
+  }
+
+  if (!message.member.roles.cache.has(procenv.MODROLE)) return;
+
+  let fetchedEntries
+
+  try {
+    fetchedEntries = await message.channel.messages.fetch({ limit: 100 });
+  } catch (e) {
+	      console.log(e);
+  }
+
+  let lastMessage = fetchedEntries.last();
+
+  if (lastMessage.author.id != client.user.id) let winner;
+
+  winner = lastMessage.mentions.users.first();
 });
