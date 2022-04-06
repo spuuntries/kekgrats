@@ -52,6 +52,7 @@ client.on("messageCreate", async (message) => {
     logChannel = await client.channels.fetch(procenv.LOGCHANNEL);
   } catch (e) {
     console.log(e);
+    return;
   }
 
   if (!message.member.roles.cache.has(procenv.MODROLE)) return;
@@ -64,6 +65,7 @@ client.on("messageCreate", async (message) => {
     );
   } catch (e) {
     console.log(e);
+    return;
   }
 
   let lastMessage = fetchedEntries[fetchedEntries.length - 1],
@@ -87,7 +89,9 @@ client.on("messageCreate", async (message) => {
   let participants;
 
   if (votingMessage.author.id == client.user.id)
-    participants = Array.from(votingMessage.mentions.users.values());
+    participants = Array.from(votingMessage.mentions.users.values()).filter(
+      (u) => u.id != client.user.id && u.id != winner.id
+    );
 
   if (participants) {
     participants.forEach(async (participant, i) => {
@@ -108,7 +112,7 @@ client.on("messageCreate", async (message) => {
   let embed = new Discord.MessageEmbed()
     .setTitle(
       `<t:${new Date().valueOf() / 1000}:f> ${
-        Object.entries(events.events)[events.rewards.indexOf(eventMeta)][0]
+        Object.keys(events.events)[events.rewards.indexOf(eventMeta)]
       } rewards log`
     )
     .setAuthor({
